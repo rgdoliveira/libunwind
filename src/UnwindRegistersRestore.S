@@ -258,6 +258,53 @@ Lnovec:
   lwz    r3,20(r3)  ; do r3 last
   bctr
 
+
+#elif defined(__powerpc64__)
+
+DEFINE_LIBUNWIND_PRIVATE_FUNCTION(_ZN9libunwind15Registers_ppc646jumptoEv)
+//
+// void libunwind::Registers_ppc64::jumpto()
+//
+// On entry:
+//  thread_state pointer is in r3
+//
+
+  // restore integral registers
+  // skip r0 for now
+  // skip r1 for now
+  ld     r2, 32(r3)
+  // skip r3 for now
+  // skip r4 for now
+  // skip r5 for now
+  ld     r6, 64(r3)
+  ld     r7, 72(r3)
+  ld     r8, 80(r3)
+  ld     r9, 88(r3)
+  ld     r10, 96(r3)
+  ld     r11, 104(r3)
+  ld     r12, 112(r3)
+  ld     r13, 120(r3)
+  ld     r14, 128(r3)
+  ld     r15, 136(r3)
+  ld     r16, 144(r3)
+  ld     r17, 152(r3)
+  ld     r18, 160(r3)
+  ld     r19, 168(r3)
+  ld     r20, 176(r3)
+  ld     r21, 184(r3)
+  ld     r22, 192(r3)
+  ld     r23, 200(r3)
+  ld     r24, 208(r3)
+  ld     r25, 216(r3)
+  ld     r26, 224(r3)
+  ld     r27, 232(r3)
+  ld     r28, 240(r3)
+  ld     r29, 248(r3)
+  ld     r30, 256(r3)
+  ld     r31, 264(r3)
+  
+  //TODO: complete me
+
 #elif defined(__arm64__) || defined(__aarch64__)
 
 //

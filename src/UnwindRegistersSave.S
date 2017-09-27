@@ -239,6 +239,56 @@ DEFINE_LIBUNWIND_FUNCTION(unw_getcontext)
   blr
 
 
+#elif defined(__powerpc64__)
+
+//
+// extern int unw_getcontext(unw_context_t* thread_state)
+//
+// On entry:
+//  thread_state pointer is in r3
+//
+DEFINE_LIBUNWIND_FUNCTION(unw_getcontext)
+  std    r0,  16(r3)
+  mflr   r0
+  std    r0,  0(r3)  // store lr as ssr0
+  std    r1, 24(r3)
+  std    r2, 32(r3)
+  std    r3, 40(r3)
+  std    r4, 48(r3)
+  std    r5, 56(r3)
+  std    r6, 64(r3)
+  std    r7, 72(r3)
+  std    r8, 80(r3)
+  std    r9, 88(r3)
+  std    r10, 96(r3)
+  std    r11,104(r3)
+  std    r12,112(r3)
+  std    r13,120(r3)
+  std    r14,128(r3)
+  std    r15,136(r3)
+  std    r16,144(r3)
+  std    r17,152(r3)
+  std    r18,160(r3)
+  std    r19,168(r3)
+  std    r20,176(r3)
+  std    r21,184(r3)
+  std    r22,192(r3)
+  std    r23,200(r3)
+  std    r24,208(r3)
+  std    r25,216(r3)
+  std    r26,224(r3)
+  std    r27,232(r3)
+  std    r28,240(r3)
+  std    r29,248(r3)
+  std    r30,256(r3)
+  std    r31,264(r3)
+	
+  //TODO: complete me
+
+  li  r3, 0    // return UNW_ESUCCESS
+  blr
+
+
 #elif defined(__arm64__) || defined(__aarch64__)
 
 //
