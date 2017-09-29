@@ -1065,7 +1065,7 @@ public:
   void        setVectorRegister(int num, v128 value);
   const char *getRegisterName(int num);
   void        jumpto();
-  static int  lastDwarfRegNum() { return 112; }
+  static int  lastDwarfRegNum() { return 108; }
 
   uint64_t  getSP() const         { return _registers.__r1; }
   void      setSP(uint64_t value) { _registers.__r1 = value; }
@@ -1112,7 +1112,6 @@ private:
     uint64_t __xer;    /* User's integer exception register */
     uint64_t __lr;     /* Link register */
     uint64_t __ctr;    /* Count register */
-    uint64_t __mq;     /* MQ register (601 only) */
     uint64_t __vrsave; /* Vector Save Register */
   };
 
@@ -1131,13 +1130,13 @@ inline Registers_ppc64::Registers_ppc64(const void *registers) {
                 "ppc64 registers do not fit into unw_context_t");
   memcpy(&_registers, static_cast<const uint8_t *>(registers),
          sizeof(_registers));
-  static_assert(sizeof(ppc64_thread_state_t) == 320,
-                "expected float register offset to be 320");
+  static_assert(sizeof(ppc64_thread_state_t) == 312,
+                "expected float register offset to be 312");
   memcpy(&_floatRegisters,
          static_cast<const uint8_t *>(registers) + sizeof(ppc64_thread_state_t),
          sizeof(_floatRegisters));
-  static_assert(sizeof(ppc64_thread_state_t) + sizeof(ppc64_float_state_t) == 584,
-                "expected vector register offset to be 584 bytes");
+  static_assert(sizeof(ppc64_thread_state_t) + sizeof(ppc64_float_state_t) == 576,
+                "expected vector register offset to be 576 bytes");
   memcpy(_vectorRegisters,
          static_cast<const uint8_t *>(registers) + sizeof(ppc64_thread_state_t) +
              sizeof(ppc64_float_state_t),
@@ -1160,8 +1159,6 @@ inline bool Registers_ppc64::validRegister(int regNum) const {
   if (regNum < 0)
     return false;
   if (regNum <= UNW_PPC64_R31)
-    return true;
-  if (regNum == UNW_PPC64_MQ)
     return true;
   if (regNum == UNW_PPC64_LR)
     return true;
@@ -1370,9 +1367,6 @@ inline void Registers_ppc64::setRegister(int regNum, uint64_t value) {
   case UNW_PPC64_R31:
     _registers.__r31 = value;
     return;
-  case UNW_PPC64_MQ:
-    _registers.__mq = value;
-    return;
   case UNW_PPC64_LR:
     _registers.__lr = value;
     return;
@@ -1419,9 +1413,7 @@ inline void Registers_ppc64::setRegister(int regNum, uint64_t value) {
   case UNW_PPC64_XER:
     _registers.__xer = value;
     return;
-  case UNW_PPC64_AP:
   case UNW_PPC64_VSCR:
-  case UNW_PPC64_SPEFSCR:
     // not saved
     return;
   }

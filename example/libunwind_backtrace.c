@@ -18,6 +18,19 @@ void backtrace() {
   unw_get_reg(&cursor, UNW_PPC64_R14, &r14);
   printf("r14 = %lu \n", r14);
 
+  unw_fpreg_t f14;
+  unw_get_fpreg(&cursor, UNW_PPC64_F14, &f14);
+  printf("f14 = %lu \n", f14);
+
+
+/*  printf("----------------------------\n");
+  int i = 0;
+  for(i = 0; i < 137; i++) {
+	printf("[%d] = %lu \n", i, context.data[i]);
+
+  }
+*/
+
 
   // Unwind frames one by one, going up the frame stack.
   while (unw_step(&cursor) > 0) {
@@ -47,7 +60,9 @@ void bar() {
 }
 
 int main(int argc, char **argv) {
-  asm("li 14,200;");
+  asm("li 14, 200;");
+  asm("lfd 14, 0(1)");
+
   bar();
 
   return 0;

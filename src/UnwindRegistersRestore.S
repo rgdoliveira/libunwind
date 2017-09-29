@@ -305,6 +305,49 @@ DEFINE_LIBUNWIND_PRIVATE_FUNCTION(_ZN9libunwind15Registers_ppc646jumptoEv)
   
   //TODO: complete me
 
+  //restore float registers
+  lfd    f0, 312(r3)
+  lfd    f1, 320(r3)
+  lfd    f2, 328(r3)
+  lfd    f3, 336(r3)
+  lfd    f4, 344(r3)
+  lfd    f5, 352(r3)
+  lfd    f6, 360(r3)
+  lfd    f7, 368(r3)
+  lfd    f8, 376(r3)
+  lfd    f9, 384(r3)
+  lfd    f10,392(r3)
+  lfd    f11,400(r3)
+  lfd    f12,408(r3)
+  lfd    f13,416(r3)
+  lfd    f14,424(r3)
+  lfd    f15,432(r3)
+  lfd    f16,440(r3)
+  lfd    f17,448(r3)
+  lfd    f18,456(r3)
+  lfd    f19,464(r3)
+  lfd    f20,472(r3)
+  lfd    f21,480(r3)
+  lfd    f22,488(r3)
+  lfd    f23,496(r3)
+  lfd    f24,504(r3)
+  lfd    f25,512(r3)
+  lfd    f26,520(r3)
+  lfd    f27,528(r3)
+  lfd    f28,536(r3)
+  lfd    f29,544(r3)
+  lfd    f30,552(r3)
+  lfd    f31,560(r3)
+
+  //TODO: restore vector registers
+
+
+  ld	r0, 16(r3)
+  ld	r5, 56(r3)
+  ld	r4, 48(r3)
+  ld	r1, 24(r3)
+  ld	r3, 40(r3)
+
 #elif defined(__arm64__) || defined(__aarch64__)
 
 //

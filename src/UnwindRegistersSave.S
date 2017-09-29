@@ -283,7 +283,61 @@ DEFINE_LIBUNWIND_FUNCTION(unw_getcontext)
   std    r30,256(r3)
   std    r31,264(r3)
 	
-  //TODO: complete me
+  mfcr  r0
+  std   r0,272(r3)
+
+  mfxer	r0
+  std	r0,280(r3)
+
+  mflr	r0
+  std	r0,288(r3)
+
+  mfctr	r0
+  std	r0,296(r3)
+
+  mfvrsave r0
+  std	   r0,304(r3)
+
+  // save float registers
+  stfd    f0, 312(r3)
+  stfd    f1, 320(r3)
+  stfd    f2, 328(r3)
+  stfd    f3, 336(r3)
+  stfd    f4, 344(r3)
+  stfd    f5, 352(r3)
+  stfd    f6, 360(r3)
+  stfd    f7, 368(r3)
+  stfd    f8, 376(r3)
+  stfd    f9, 384(r3)
+  stfd    f10,392(r3)
+  stfd    f11,400(r3)
+  stfd    f12,408(r3)
+  stfd    f13,416(r3)
+  stfd    f14,424(r3)
+  stfd    f15,432(r3)
+  stfd    f16,440(r3)
+  stfd    f17,448(r3)
+  stfd    f18,456(r3)
+  stfd    f19,464(r3)
+  stfd    f20,472(r3)
+  stfd    f21,480(r3)
+  stfd    f22,488(r3)
+  stfd    f23,496(r3)
+  stfd    f24,504(r3)
+  stfd    f25,512(r3)
+  stfd    f26,520(r3)
+  stfd    f27,528(r3)
+  stfd    f28,536(r3)
+  stfd    f29,544(r3)
+  stfd    f30,552(r3)
+  stfd    f31,560(r3)
+
+  mffs    f0
+  stfd	  f0,568(r3)
+
+  //TODO: save vector registers
+
+
 
   li  r3, 0    // return UNW_ESUCCESS
   blr
